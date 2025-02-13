@@ -8,30 +8,6 @@ import Link from "next/link";
 export default function About() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-xl font-semibold">Untitled UI</Link>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-foreground/80 hover:text-foreground">Home</Link>
-              <Link href="/blog" className="text-foreground/80 hover:text-foreground">Blog</Link>
-              <Link href="/about" className="text-foreground/80 hover:text-foreground">About us</Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="ghost">Log in</Button>
-              </Link>
-              <Link href="/signup">
-                <Button>Sign up</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <div className="relative bg-black text-white">
         <div className="absolute inset-0">
@@ -40,6 +16,7 @@ export default function About() {
             alt="Team collaboration"
             fill
             className="object-cover opacity-40"
+            priority
           />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -137,58 +114,6 @@ export default function About() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-black text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Company Info */}
-            <div className="space-y-4">
-              <Link href="/" className="text-xl font-semibold">Untitled UI</Link>
-              <p className="text-white/60 text-sm max-w-sm">
-                Beautiful design and development resources for creating modern, intuitive interfaces.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div className="space-y-4">
-              <h4 className="font-semibold text-lg">Quick Links</h4>
-              <div className="grid grid-cols-2 gap-4">
-                <Link href="/about" className="text-white/60 hover:text-white transition-colors">About</Link>
-                <Link href="/blog" className="text-white/60 hover:text-white transition-colors">Blog</Link>
-                <Link href="/careers" className="text-white/60 hover:text-white transition-colors">Careers</Link>
-                <Link href="/contact" className="text-white/60 hover:text-white transition-colors">Contact</Link>
-              </div>
-            </div>
-
-            {/* Connect */}
-            <div className="space-y-4">
-              <h4 className="font-semibold text-lg">Connect</h4>
-              <div className="flex space-x-4">
-                <Link href="https://twitter.com" className="text-white/60 hover:text-white transition-colors">
-                  Twitter
-                </Link>
-                <Link href="https://github.com" className="text-white/60 hover:text-white transition-colors">
-                  GitHub
-                </Link>
-                <Link href="https://linkedin.com" className="text-white/60 hover:text-white transition-colors">
-                  LinkedIn
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-16 pt-8 border-t border-white/20">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <p className="text-white/60 text-sm">© 2024 Untitled UI. All rights reserved.</p>
-              <div className="flex space-x-6 text-sm">
-                <Link href="/privacy" className="text-white/60 hover:text-white transition-colors">Privacy Policy</Link>
-                <Link href="/terms" className="text-white/60 hover:text-white transition-colors">Terms of Service</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
