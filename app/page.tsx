@@ -1,12 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "@/lib/blog-data";
+import { useState } from "react";
 
 export default function Home() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
+  const totalPages = Math.ceil(blogPosts.length / postsPerPage);
+
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const currentPosts = blogPosts.slice(startIndex, endIndex);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -18,7 +27,6 @@ export default function Home() {
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-foreground/80 hover:text-foreground">Home</Link>
-              <Link href="/blog" className="text-foreground/80 hover:text-foreground">Blog</Link>
               <Link href="/about" className="text-foreground/80 hover:text-foreground">About us</Link>
             </div>
             <div className="flex items-center space-x-4">
@@ -65,11 +73,11 @@ export default function Home() {
         </div>
       </Link>
 
-      {/* Recent Blog Posts */}
+      {/* Blog Posts Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h3 className="text-2xl font-semibold mb-8">Recent blog posts</h3>
+        <h3 className="text-2xl font-semibold mb-8">All blog posts</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.slice(1).map((post, index) => (
+          {currentPosts.map((post, index) => (
             <Link href={`/blog/${post.slug}`} key={index}>
               <div className="group cursor-pointer">
                 <div className="relative h-64 mb-4 overflow-hidden rounded-lg">
@@ -92,6 +100,29 @@ export default function Home() {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-center items-center space-x-4 mt-12">
+          <Button
+            variant="outline"
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft className="h-4 w-4" />
+            Previous
+          </Button>
+          <span className="text-sm text-muted-foreground">
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            variant="outline"
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+          >
+            Next
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
       </div>
 
@@ -133,7 +164,6 @@ export default function Home() {
               <h4 className="font-semibold text-lg">Quick Links</h4>
               <div className="grid grid-cols-2 gap-4">
                 <Link href="/about" className="text-white/60 hover:text-white transition-colors">About</Link>
-                <Link href="/blog" className="text-white/60 hover:text-white transition-colors">Blog</Link>
                 <Link href="/careers" className="text-white/60 hover:text-white transition-colors">Careers</Link>
                 <Link href="/contact" className="text-white/60 hover:text-white transition-colors">Contact</Link>
               </div>
