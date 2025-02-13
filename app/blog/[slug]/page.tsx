@@ -32,21 +32,6 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-xl font-semibold">Untitled UI</Link>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost">Log in</Button>
-              <Button>Sign up</Button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <div className="relative h-[400px] w-full">
         <Image
@@ -75,7 +60,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             <span>•</span>
             <span>{post.readTime}</span>
           </div>
-          <div 
+          <div
             className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
