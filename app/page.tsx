@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -10,11 +9,13 @@ import { useState } from "react";
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 6;
-  const totalPages = Math.ceil(blogPosts.length / postsPerPage);
 
+  // Exclude the first post (featured post) from the list
+  const nonFeaturedPosts = blogPosts.slice(1);
+  const totalPages = Math.ceil(nonFeaturedPosts.length / postsPerPage);
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-  const currentPosts = blogPosts.slice(startIndex, endIndex);
+  const currentPosts = nonFeaturedPosts.slice(startIndex, endIndex);
 
   return (
     <div className="min-h-screen bg-background">
@@ -43,13 +44,14 @@ export default function Home() {
               <div className="flex items-center space-x-2">
                 <span className="text-sm">{blogPosts[0].author}</span>
                 <span className="text-sm text-white/60">•</span>
-                <span className="text-sm text-white/60">{blogPosts[0].date}</span>
+                <span className="text-sm text-white/60">
+                  {blogPosts[0].date}
+                </span>
               </div>
             </div>
           </div>
         </div>
       </Link>
-
       {/* Blog Posts Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h3 className="text-2xl font-semibold mb-8">All blog posts</h3>
@@ -72,18 +74,19 @@ export default function Home() {
                 <div className="flex items-center space-x-2">
                   <span className="text-sm">{post.author}</span>
                   <span className="text-sm text-muted-foreground">•</span>
-                  <span className="text-sm text-muted-foreground">{post.date}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {post.date}
+                  </span>
                 </div>
               </div>
             </Link>
           ))}
         </div>
-
         {/* Pagination */}
         <div className="flex justify-center items-center space-x-4 mt-12">
           <Button
             variant="outline"
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -94,7 +97,7 @@ export default function Home() {
           </span>
           <Button
             variant="outline"
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
           >
             Next
@@ -102,7 +105,6 @@ export default function Home() {
           </Button>
         </div>
       </div>
-
       {/* CTA Section */}
       <div className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -113,7 +115,10 @@ export default function Home() {
             Join over 4,000+ startups already growing with Untitled.
           </p>
           <div className="flex justify-center space-x-4">
-            <Button variant="outline" className="bg-white text-black hover:bg-white/90">
+            <Button
+              variant="outline"
+              className="bg-white text-black hover:bg-white/90"
+            >
               Chat to us
             </Button>
             <Button className="bg-white text-black hover:bg-white/90">
